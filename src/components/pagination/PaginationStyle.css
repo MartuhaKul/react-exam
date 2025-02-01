@@ -1,0 +1,13 @@
+.pagination{
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+.pagination button{
+    width: 100px;
+    margin-right: 30px;
+    padding: 4px 10px;
+    border: 1px solid #4e68e7;
+    border-radius: 4px;
+    background-color: #d7dcf5;
+}
