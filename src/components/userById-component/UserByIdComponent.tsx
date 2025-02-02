@@ -5,9 +5,7 @@ import { recipeActions } from "../../redux/slices/recipeSlice.ts";
 import { userActions } from "../../redux/slices/userByIdSlice.ts";
 import { IRecipe } from "../../models/IRecipe.ts";
 import { UserByIdInfo } from "./UserByIdInfo.tsx";
-
-// Оновлений тип для користувача без токенів
-import { IUser } from "../../models/IUser.tsx";
+import { IUser } from "../../models/user/IUser.ts";
 
 export const UserByIdComponent = () => {
     const { id } = useParams<{ id: string }>();

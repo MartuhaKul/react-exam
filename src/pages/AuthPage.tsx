@@ -1,4 +1,4 @@
-import {LoginComponent} from "../components/auth-component/LoginComponent.tsx";
+import {LoginComponent} from "../components/login-component/LoginComponent.tsx";
 
 export const AuthPage = () => {
     return (

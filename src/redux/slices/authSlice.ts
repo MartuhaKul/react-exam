@@ -11,11 +11,12 @@ type AuthSliceType = {
 };
 
 const initAuthSliceState: AuthSliceType = {
-    user: null,
+    user: JSON.parse(localStorage.getItem("user") || "null"),
     loading: false,
     error: null,
-    isAuthenticated: false,
+    isAuthenticated: JSON.parse(localStorage.getItem("user") || "null") !== null,
 };
+
 
 export const loginUser = createAsyncThunk<IUserWithTokens, { username: string; password: string }>(
     "auth/loginUser",

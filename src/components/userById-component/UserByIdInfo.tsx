@@ -1,5 +1,5 @@
 
-import { IUser } from "../../models/user/IUser.ts"; // Імпорт інтерфейсу IUser
+import { IUser } from "../../models/user/IUser.ts";
 
 interface UserByIdInfoProps {
     user: IUser;
