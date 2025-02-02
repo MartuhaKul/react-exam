@@ -4,7 +4,7 @@ import {PaginationComponent} from "../components/pagination/PaginationComponent.
 export const RecipesPage = () => {
     return (
         <>
-        <RecipesComponent/>
+            <RecipesComponent/>
             <PaginationComponent/>
         </>
     );

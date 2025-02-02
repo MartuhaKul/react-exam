@@ -32,11 +32,6 @@ export const login = async ({username, password, expiresInMins}: LoginData): Pro
     localStorage.setItem("user", JSON.stringify(userWithTokens));
     return userWithTokens;
 }
-//
-// export const loadAuthProducts = async (): Promise<IProduct[]> => {
-//     const {data: {products}} = await axiosInstance.get<IProductsResponseModel>("/products");
-//     return products;
-// }
 
 export const refresh = async () => {
     const iUserWithTokens = retriveLocalStorage<IUserWithTokens>('user');

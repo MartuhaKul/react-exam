@@ -3,7 +3,7 @@ import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {getAllUsers} from "../../services/api.service.ts";
 import {IBaseResponseModel} from "../../models/IBaseResponseModel.ts";
 
-type UserSliceType = {
+type UsersSliceType = {
     users: IUser[];
     loading: boolean;
     error: string | null;
@@ -22,7 +22,7 @@ const loadUsers = createAsyncThunk<IUser[],{page:string}>(
     }
 );
 
-const initUserSlaceState: UserSliceType = {
+const initUsersSliceState: UsersSliceType = {
     users: [],
     loading: false,
     error: null
@@ -30,7 +30,7 @@ const initUserSlaceState: UserSliceType = {
 
 export const userSlice = createSlice({
     name: 'userSlice',
-    initialState: initUserSlaceState,
+    initialState: initUsersSliceState,
     reducers: {},
     extraReducers: builder => {
         builder

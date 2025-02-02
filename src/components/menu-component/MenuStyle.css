@@ -1,0 +1,17 @@
+.menu{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: dodgerblue;
+    height: 20vh;
+    margin-bottom: 15px;
+
+}
+.menu ul{
+    display: flex;
+    gap: 30px;
+}
+.menu ul li{
+    font-size: xx-large;
+    color: white;
+}

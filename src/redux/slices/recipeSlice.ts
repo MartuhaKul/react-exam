@@ -3,7 +3,7 @@ import {getAllRecipes} from "../../services/api.service.ts";
 import {IBaseResponseModel} from "../../models/IBaseResponseModel.ts";
 import {IRecipe} from "../../models/IRecipe.ts";
 
-type ResipeSliceType = {
+type RecipeSliceType = {
     recipes: IRecipe[];
     loading: boolean;
     error: string | null;
@@ -22,7 +22,7 @@ const loadRecipes = createAsyncThunk<IRecipe[],{page:string}>(
     }
 );
 
-const initRecipeSlaceState: ResipeSliceType = {
+const initRecipeSliceState: RecipeSliceType = {
     recipes: [],
     loading: false,
     error: null
@@ -30,7 +30,7 @@ const initRecipeSlaceState: ResipeSliceType = {
 
 export const recipeSlice = createSlice({
     name: 'recipeSlice',
-    initialState: initRecipeSlaceState,
+    initialState: initRecipeSliceState,
     reducers: {},
     extraReducers: builder => {
         builder
