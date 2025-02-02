@@ -1,5 +1,6 @@
 import {IRecipe} from "../../models/IRecipe.ts";
 import {Link} from "react-router-dom";
+import "../../css/RecipeComponent.css"
 
 interface IRecipeProps {
     item:IRecipe,
@@ -7,8 +8,8 @@ interface IRecipeProps {
 
 export const RecipeComponent = ({item}:IRecipeProps) => {
     return (
-        <div>
-            <h3><Link to={`/recipes/${item.id}`}>{item.name}</Link></h3>
+        <div className='recipe-container'>
+            <h3 className='recipe-title'><Link to={`/recipes/${item.id}`}>{item.name}</Link></h3>
             <img className="recipe-image" src={item.image} alt={item.name} />
         </div>
     );

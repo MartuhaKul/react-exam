@@ -38,14 +38,22 @@ export const SearchBarComponent = () => {
     };
 
     return (
-        <div>
-            <input
-                type="text"
-                placeholder="Search..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-            />
-            <button onClick={handleSearch}>🔍</button>
+        <div className="flex flex-col items-center justify-center">
+            <div className="flex items-center space-x-4">
+                <input
+                    type="text"
+                    placeholder="Search..."
+                    value={searchTerm}
+                    onChange={(e) => setSearchTerm(e.target.value)}
+                    className="p-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                />
+                <button
+                    onClick={handleSearch}
+                    className="bg-blue-500 text-white p-2 rounded-lg"
+                >
+                    OK
+                </button>
+            </div>
         </div>
     );
 };

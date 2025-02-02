@@ -21,9 +21,11 @@ export const RecipesComponent = () => {
     if (loading) return <div>Loading...</div>;
     if (error) return <div>Error loading recipes: {error}</div>;
     return (
-        <div>
+        <div className='flex flex-col items-center justify-center gap-5'>
             <SearchBarComponent/>
+           <div className='grid grid-cols-3 grid-rows-3 gap-4'>
             {recipes.map((recipe) => (<RecipeComponent key={recipe.id} item={recipe} />))}
+           </div>
         </div>
     );
 };

@@ -1,28 +1,33 @@
-
 import { IUser } from "../../models/user/IUser.ts";
+import "../../css/UserByIdInfo.css";
 
 interface UserByIdInfoProps {
     user: IUser;
 }
 
-export const UserByIdInfo= ({ user }:UserByIdInfoProps) => {
+export const UserByIdInfo = ({ user }: UserByIdInfoProps) => {
     return (
-        <div className="user-info">
-            <h1>{user.firstName} {user.lastName}</h1>
+        <div className="user-container">
+            <h1 className="user-title">
+                {user.firstName} {user.lastName}
+            </h1>
             <img src={user.image} alt="User Avatar" className="user-avatar" />
-            <p><strong>Email:</strong> {user.email}</p>
-            <p><strong>Phone:</strong> {user.phone}</p>
-            <p><strong>Age:</strong> {user.age}</p>
-            <p><strong>Gender:</strong> {user.gender}</p>
-            <p><strong>Birth Date:</strong> {user.birthDate}</p>
-            <p><strong>Blood Group:</strong> {user.bloodGroup}</p>
-            <p><strong>Height:</strong> {user.height} cm</p>
-            <p><strong>Weight:</strong> {user.weight} kg</p>
-            <p><strong>Eye Color:</strong> {user.eyeColor}</p>
-            <p><strong>Hair:</strong> {user.hair.color} ({user.hair.type})</p>
-            <p><strong>University:</strong> {user.university}</p>
-            <p><strong>Company:</strong> {user.company.name} - {user.company.title}</p>
-            <p><strong>Address:</strong> {user.address.address}, {user.address.city}, {user.address.country}</p>
+
+            <div className="user-info">
+                <p><span>Email:</span> {user.email}</p>
+                <p><span>Phone:</span> {user.phone}</p>
+                <p><span>Age:</span> {user.age}</p>
+                <p><span>Gender:</span> {user.gender}</p>
+                <p><span>Birth Date:</span> {user.birthDate}</p>
+                <p><span>Blood Group:</span> {user.bloodGroup}</p>
+                <p><span>Height:</span> {user.height} cm</p>
+                <p><span>Weight:</span> {user.weight} kg</p>
+                <p><span>Eye Color:</span> {user.eyeColor}</p>
+                <p><span>Hair:</span> {user.hair.color} ({user.hair.type})</p>
+                <p><span>University:</span> {user.university}</p>
+                <p><span>Company:</span> {user.company.name} - {user.company.title}</p>
+                <p><span>Address:</span> {user.address.address}, {user.address.city}, {user.address.country}</p>
+            </div>
         </div>
     );
 };

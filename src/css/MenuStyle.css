@@ -1,8 +1,9 @@
 .menu{
+
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: dodgerblue;
+    background-color: #4175ff;
     height: 20vh;
     margin-bottom: 15px;
 

@@ -37,22 +37,25 @@ export const UserByIdComponent = () => {
 
     return (
         <div className="user-page">
-            {user && <UserByIdInfo user={user as IUser} />}
+            {user && <UserByIdInfo user={user as IUser}/>}
 
-            <div className="recipes-list">
-                <h2>Recipes by {user?.firstName}</h2>
+            <div className="max-w-md mx-auto p-4 bg-white shadow rounded-lg">
+                <h2 className="text-xl font-semibold mb-3">Recipes by {user?.firstName}</h2>
                 {userRecipes.length > 0 ? (
-                    <ul>
+                    <ul className="space-y-1">
                         {userRecipes.map((recipe: IRecipe) => (
                             <li key={recipe.id}>
-                                <a href={`/recipes/${recipe.id}`}>{recipe.name}</a>
+                                <a href={`/recipes/${recipe.id}`} className="text-blue-500 hover:underline">
+                                    {recipe.name}
+                                </a>
                             </li>
                         ))}
                     </ul>
                 ) : (
-                    <p>No recipes found</p>
+                    <p className="text-gray-500">No recipes found</p>
                 )}
             </div>
+
         </div>
     );
 };

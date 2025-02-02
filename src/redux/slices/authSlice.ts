@@ -1,7 +1,7 @@
 import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { login as apiLogin } from "../../services/api.login.service.ts";
 import { IUserWithTokens } from "../../models/user/IUserWithTokens.ts";
-import { refresh } from "../../services/api.login.service.ts"; // імпортуємо функцію refresh
+import { refresh } from "../../services/api.login.service.ts";
 
 type AuthSliceType = {
     user: IUserWithTokens | null;
