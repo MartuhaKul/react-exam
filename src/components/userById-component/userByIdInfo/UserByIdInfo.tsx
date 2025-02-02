@@ -1,5 +1,5 @@
-import { IUser } from "../../models/user/IUser.ts";
-import "../../css/UserByIdInfo.css";
+import { IUser } from "../../../models/user/IUser.ts";
+import "./UserByIdInfo.css";
 
 interface UserByIdInfoProps {
     user: IUser;

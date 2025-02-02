@@ -1,4 +1,4 @@
-import {RecipeByIdComponent} from "../components/recipeById-components/RecipeByIdComponent.tsx";
+import {RecipeByIdComponent} from "../components/recipeById-components/recipeByIdConponent/RecipeByIdComponent.tsx";
 
 export const RecipePage = () => {
     return (

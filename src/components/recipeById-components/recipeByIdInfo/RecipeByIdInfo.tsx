@@ -1,5 +1,5 @@
-import { IRecipe } from "../../models/IRecipe";
-import "../../css/RecipeByIdInfo.css"
+import { IRecipe } from "../../../models/IRecipe.ts";
+import "./RecipeByIdInfo.css"
 
 interface RecipeDetailsProps {
         recipe: IRecipe;

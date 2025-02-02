@@ -4,7 +4,7 @@ import { useAppDispatch, useAppSelector } from "../../redux/store.ts";
 import { recipeActions } from "../../redux/slices/recipeSlice.ts";
 import { userActions } from "../../redux/slices/userByIdSlice.ts";
 import { IRecipe } from "../../models/IRecipe.ts";
-import { UserByIdInfo } from "./UserByIdInfo.tsx";
+import { UserByIdInfo } from "./userByIdInfo/UserByIdInfo.tsx";
 import { IUser } from "../../models/user/IUser.ts";
 
 export const UserByIdComponent = () => {

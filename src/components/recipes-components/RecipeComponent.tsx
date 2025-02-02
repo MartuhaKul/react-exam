@@ -1,6 +1,6 @@
 import {IRecipe} from "../../models/IRecipe.ts";
 import {Link} from "react-router-dom";
-import "../../css/RecipeComponent.css"
+import "../recipeById-components/recipeByIdConponent/RecipeComponent.css"
 
 interface IRecipeProps {
     item:IRecipe,

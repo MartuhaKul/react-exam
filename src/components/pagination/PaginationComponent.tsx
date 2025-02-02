@@ -1,5 +1,5 @@
 import { useSearchParams } from "react-router-dom";
-import "../../css/PaginationStyle.css";
+import "./PaginationStyle.css";
 
 export const PaginationComponent = () => {
     const [query, setQuery] = useSearchParams();

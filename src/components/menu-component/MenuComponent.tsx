@@ -1,7 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useAppSelector, useAppDispatch } from "../../redux/store.ts";
 import { logout } from "../../redux/slices/authSlice.ts";
-import "../../css/MenuStyle.css";
+import "./MenuStyle.css";
 
 export const MenuComponent = () => {
     const {user} = useAppSelector(state => state.authStoreSlice);

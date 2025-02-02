@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../redux/store.ts";
-import { recipeActions } from "../../redux/slices/recipeByIdSlice.ts";
-import { RecipeByIdInfo } from "./RecipeByIdInfo.tsx";
+import { useAppDispatch, useAppSelector } from "../../../redux/store.ts";
+import { recipeActions } from "../../../redux/slices/recipeByIdSlice.ts";
+import { RecipeByIdInfo } from "../recipeByIdInfo/RecipeByIdInfo.tsx";
 
 export const RecipeByIdComponent = () => {
     const { id } = useParams<{ id: string }>();
