@@ -1,40 +1,60 @@
-import {createSlice, createAsyncThunk, PayloadAction} from "@reduxjs/toolkit";
+import { createSlice, createAsyncThunk, PayloadAction } from "@reduxjs/toolkit";
 import { login as apiLogin } from "../../services/api.login.service.ts";
-import { IUserWithTokens } from "../../models/IUserWithTokens.ts";
-
+import { IUserWithTokens } from "../../models/user/IUserWithTokens.ts";
+import { refresh } from "../../services/api.login.service.ts"; // імпортуємо функцію refresh
 
 type AuthSliceType = {
     user: IUserWithTokens | null;
     loading: boolean;
     error: string | null;
-}
+    isAuthenticated: boolean;
+};
 
-
-const initiAuthSliceState: AuthSliceType = {
+const initAuthSliceState: AuthSliceType = {
     user: null,
     loading: false,
     error: null,
+    isAuthenticated: false,
 };
 
-
-export const loginUser = createAsyncThunk<IUserWithTokens, {username:string,password:string}>(
+export const loginUser = createAsyncThunk<IUserWithTokens, { username: string; password: string }>(
     "auth/loginUser",
     async ({ username, password }, thunkAPI) => {
-    try {
-        const user:IUserWithTokens = await apiLogin({ username, password, expiresInMins: 60 });
-        return thunkAPI.fulfillWithValue(user);
-    } catch (e) {
-        console.error(e);
-        return thunkAPI.rejectWithValue('Login failed');
+        try {
+            const user: IUserWithTokens = await apiLogin({ username, password, expiresInMins: 60 });
+            return thunkAPI.fulfillWithValue(user);
+        } catch (e) {
+            console.error(e);
+            return thunkAPI.rejectWithValue('Login failed');
+        }
     }
-});
+);
+
+export const refreshToken = createAsyncThunk<IUserWithTokens, void>(
+    "auth/refreshToken",
+    async (_, thunkAPI) => {
+        try {
+            const iUserWithTokens: IUserWithTokens = JSON.parse(localStorage.getItem("user") as string);
+            if (iUserWithTokens?.refreshToken) {
+                await refresh();
+                return thunkAPI.fulfillWithValue(iUserWithTokens);
+            } else {
+                throw new Error("No refresh token found");
+            }
+        } catch (e) {
+            console.error(e);
+            return thunkAPI.rejectWithValue("Failed to refresh token");
+        }
+    }
+);
 
 export const authSlice = createSlice({
     name: "auth",
-    initialState: initiAuthSliceState,
+    initialState: initAuthSliceState,
     reducers: {
         logout(state) {
             state.user = null;
+            state.isAuthenticated = false;
             localStorage.removeItem("user");
         },
     },
@@ -44,14 +64,25 @@ export const authSlice = createSlice({
                 state.loading = true;
                 state.error = null;
             })
-            .addCase(loginUser.fulfilled, (state, action:PayloadAction<IUserWithTokens>) => {
+            .addCase(loginUser.fulfilled, (state, action: PayloadAction<IUserWithTokens>) => {
                 state.loading = false;
                 state.user = action.payload;
+                state.isAuthenticated = true;
                 localStorage.setItem("user", JSON.stringify(action.payload));
             })
             .addCase(loginUser.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.payload as string;
+                state.isAuthenticated = false;
+            })
+            .addCase(refreshToken.fulfilled, (state, action: PayloadAction<IUserWithTokens>) => {
+                state.user = action.payload;
+                state.isAuthenticated = true;
+                localStorage.setItem("user", JSON.stringify(action.payload));
+            })
+            .addCase(refreshToken.rejected, (state, action) => {
+                state.error = action.payload as string;
+                state.isAuthenticated = false;
             });
     },
 });

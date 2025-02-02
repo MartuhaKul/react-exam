@@ -1,37 +1,51 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import {createSlice, createAsyncThunk, PayloadAction} from "@reduxjs/toolkit";
 import { IRecipe } from "../../models/IRecipe.ts";
+import { getRecipeById } from "../../services/api.service.ts";
 
-export const loadRecipesByUserId = createAsyncThunk(
-    "recipe/loadRecipesByUserId",
-    async (userId: string) => {
-        const response = await fetch(`/api/recipes?userId=${userId}`);
-        return response.json();
+type RecipeSliceType = {
+    recipe: IRecipe | null;
+    loading: boolean;
+    error: string | null;
+}
+
+export const loadRecipeById = createAsyncThunk<IRecipe, string>(
+    "recipe/loadRecipeById",
+    async (recipeId, thunkAPI) => {
+        try {
+            const response = await getRecipeById(recipeId);
+            return response.data;
+        } catch (error) {
+            console.error(error);
+            return thunkAPI.rejectWithValue("Error fetching recipe by ID");
+        }
     }
 );
 
-export const recipeSlice = createSlice({
-    name: "recipeStoreSlice",
-    initialState: {
-        recipes: [] as IRecipe[],
-        loading: false,
-        error: null as string | null,
-    },
+const initRecipeSliceState: RecipeSliceType = {
+    recipe: null,
+    loading: false,
+    error: null,
+};
+
+export const recipeByIdSlice = createSlice({
+    name: "recipeByIdStoreSlice",
+    initialState: initRecipeSliceState,
     reducers: {},
     extraReducers: (builder) => {
         builder
-            .addCase(loadRecipesByUserId.pending, (state) => {
+            .addCase(loadRecipeById.pending, (state) => {
                 state.loading = true;
+                state.error = null;
             })
-            .addCase(loadRecipesByUserId.fulfilled, (state, action) => {
+            .addCase(loadRecipeById.fulfilled, (state, action:PayloadAction<IRecipe>) => {
                 state.loading = false;
-                state.recipes = action.payload;
+                state.recipe = action.payload;
             })
-            .addCase(loadRecipesByUserId.rejected, (state, action) => {
+            .addCase(loadRecipeById.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.error.message || "Something went wrong";
             });
     },
 });
 
-export const recipeActions = { loadRecipesByUserId };
-
+export const recipeActions = { loadRecipeById };

@@ -1,8 +1,9 @@
 import {useAppDispatch, useAppSelector} from "../../redux/store.ts";
 import {useEffect} from "react";
 import {userActions} from "../../redux/slices/userSlice.ts";
-import {UserComponent} from "../user-component/UserComponent.tsx";
+import {UserComponent} from "./UserComponent.tsx";
 import {useSearchParams} from "react-router-dom";
+import {SearchBarComponent} from "../searchbar-component/SearchBarComponent.tsx";
 
 export const UsersComponent = () => {
     const dispatch = useAppDispatch();
@@ -23,6 +24,7 @@ export const UsersComponent = () => {
 
     return (
         <div>
+            <SearchBarComponent/>
             {users.map((user) => (
                 <UserComponent item={user} key={user.id} />
             ))}

@@ -5,34 +5,46 @@ import {IRecipe} from "../../models/IRecipe.ts";
 
 type RecipeSliceType = {
     recipes: IRecipe[];
+    userRecipes: IRecipe[];
     loading: boolean;
     error: string | null;
 };
 
-const loadRecipes = createAsyncThunk<IRecipe[],{page:string}>(
+const loadRecipes = createAsyncThunk<IRecipe[], { page: string }>(
     "loadRecipes",
-    async ({page}, thunkAPI) => {
+    async ({ page }, thunkAPI) => {
         try {
-            const response:IBaseResponseModel<IRecipe[]> = await getAllRecipes('/recipe', page);
+            const response: IBaseResponseModel<IRecipe[]> = await getAllRecipes("/recipe", page);
             return thunkAPI.fulfillWithValue(response.data);
         } catch (e) {
             console.error(e);
-            return thunkAPI.rejectWithValue('error');
+            return thunkAPI.rejectWithValue("error");
         }
     }
 );
 
+const filterRecipesByUserId = (recipes: IRecipe[], userId: string) => {
+    return recipes.filter((recipe: IRecipe) => recipe.userId.toString() === userId);
+};
+
+
 const initRecipeSliceState: RecipeSliceType = {
     recipes: [],
+    userRecipes: [],
     loading: false,
-    error: null
+    error: null,
 };
 
 export const recipeSlice = createSlice({
-    name: 'recipeSlice',
+    name: "recipeSlice",
     initialState: initRecipeSliceState,
-    reducers: {},
-    extraReducers: builder => {
+    reducers: {
+        setUserRecipes: (state, action: PayloadAction<string>) => {
+            const userId = action.payload;
+            state.userRecipes = filterRecipesByUserId(state.recipes, userId);
+        },
+    },
+    extraReducers: (builder) => {
         builder
             .addCase(loadRecipes.pending, (state) => {
                 state.loading = true;
@@ -49,4 +61,7 @@ export const recipeSlice = createSlice({
     },
 });
 
-export const recipeActions = { ...recipeSlice.actions, loadRecipes };
+export const recipeActions = {
+    ...recipeSlice.actions,
+    loadRecipes,
+};

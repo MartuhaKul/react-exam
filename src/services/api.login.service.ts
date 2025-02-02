@@ -1,9 +1,9 @@
 import axios from "axios";
-import {IUserWithTokens} from "../models/IUserWithTokens.ts";
+import {IUserWithTokens} from "../models/user/IUserWithTokens.ts";
 import {retriveLocalStorage} from "./helpers.ts";
 import {ITokenPair} from "../models/ITokenPair.ts";
 
-const axiosInstance = axios.create({
+export const axiosInstance = axios.create({
     baseURL: 'https://dummyjson.com/auth',
     headers: {}
 });
@@ -14,13 +14,14 @@ type LoginData = {
     expiresInMins: number;
 }
 
-
 axiosInstance.interceptors.request.use((requestObject) => {
-    if (requestObject.method?.toUpperCase() === "GET") {
-        requestObject.headers.Authorization = 'Bearer ' + retriveLocalStorage<IUserWithTokens>('user').accessToken;
+    // Додаємо токен до всіх запитів
+    const user = retriveLocalStorage<IUserWithTokens>('user');
+    if (user && user.accessToken) {
+        requestObject.headers.Authorization = `Bearer ${user.accessToken}`;
     }
     return requestObject;
-})
+});
 
 export const login = async ({username, password, expiresInMins}: LoginData): Promise<IUserWithTokens> => {
     const {data: userWithTokens} = await axiosInstance.post<IUserWithTokens>("/login", {
@@ -31,7 +32,7 @@ export const login = async ({username, password, expiresInMins}: LoginData): Pro
     console.log(userWithTokens);
     localStorage.setItem("user", JSON.stringify(userWithTokens));
     return userWithTokens;
-}
+};
 
 export const refresh = async () => {
     const iUserWithTokens = retriveLocalStorage<IUserWithTokens>('user');
@@ -42,7 +43,7 @@ export const refresh = async () => {
         }
     } = await axiosInstance.post<ITokenPair>("/refresh", {
         refreshToken: iUserWithTokens.refreshToken,
-        expiresInMins: 1
+        expiresInMins: 60
     });
     iUserWithTokens.refreshToken = refreshToken;
     iUserWithTokens.accessToken = accessToken;

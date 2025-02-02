@@ -2,7 +2,8 @@ import {useAppDispatch, useAppSelector} from "../../redux/store.ts";
 import {useEffect} from "react";
 import {recipeActions} from "../../redux/slices/recipeSlice.ts";
 import {useSearchParams} from "react-router-dom";
-import {RecipeComponent} from "../recipe-component/RecipeComponent.tsx";
+import {RecipeComponent} from "./RecipeComponent.tsx";
+import {SearchBarComponent} from "../searchbar-component/SearchBarComponent.tsx";
 
 export const RecipesComponent = () => {
     const dispatch = useAppDispatch();
@@ -21,6 +22,7 @@ export const RecipesComponent = () => {
     if (error) return <div>Error loading recipes: {error}</div>;
     return (
         <div>
+            <SearchBarComponent/>
             {recipes.map((recipe) => (<RecipeComponent key={recipe.id} item={recipe} />))}
         </div>
     );

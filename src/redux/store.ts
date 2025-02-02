@@ -4,6 +4,7 @@ import {recipeSlice} from "./slices/recipeSlice.ts";
 import {useDispatch, useSelector} from "react-redux";
 import {authSlice} from "./slices/authSlice.ts";
 import {userByIdSlice} from "./slices/userByIdSlice.ts";
+import {recipeByIdSlice} from "./slices/recipeByIdSlice.ts";
 
 
 
@@ -13,7 +14,7 @@ export const store = configureStore({
         recipeStoreSlice: recipeSlice.reducer,
         authStoreSlice: authSlice.reducer,
         userByIdStoreSlice: userByIdSlice.reducer,
-        recipeByIdStoreSlice: recipeSlice.reducer,
+        recipeByIdStoreSlice: recipeByIdSlice.reducer,
 
     }
 });
